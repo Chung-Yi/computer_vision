@@ -10,10 +10,13 @@ def detect(gray_img, frame):
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
         roi_grayimg = gray_img[y:y + h, x:x + w]
-        frame = frame[y:y + h, x:x + w]
+        image = frame[y:y + h, x:x + w]
         eyes = eye_cascade.detectMultiScale(roi_grayimg, 1.1, 3)
         for (ex, ey, ew, eh) in eyes:
-            cv2.rectangle(frame, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
+            cv2.rectangle(frame, (ex + x, ey + y), (ex + x + ew, ey + y + eh),
+                          (0, 255, 0), 2)
+        # for (ex, ey, ew, eh) in eyes:
+        #     cv2.rectangle(image, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
     return frame
 
 
